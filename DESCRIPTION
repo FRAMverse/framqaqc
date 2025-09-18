@@ -13,7 +13,6 @@ URL: https://github.com/FRAMverse/framqaqc, https://framverse.github.io/framqaqc
 BugReports: https://github.com/FRAMverse/framqaqc/issues
 Imports: 
     dplyr,
-    framrsquared,
     ggplot2,
     gt,
     rlang,
@@ -23,4 +22,5 @@ Imports:
 Suggests: 
     knitr,
     rmarkdown
+Remotes: FRAMverse/framrsquared
 VignetteBuilder: knitr
