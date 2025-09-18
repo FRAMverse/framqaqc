@@ -1,0 +1,47 @@
+---
+title: "Getting_started"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting_started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Motivation
+
+When developing modifications to FRAM software, it is important to confirm that the modified version of FRAM behaves as intended. A key step is to compare the output of modified FRAM software to output of established FRAM software when changes to the code should not affect output. As an example, I developed a version of FRAM that supports batch runs. In this case, there should have been no changes to how FRAM actually ran on individual models. 
+
+Step 1 is to create two copies of the same database, run the runs of one database using the established FRAM software, and run the runs of the other database using the modified FRAM software. At that point, we need to compare if the run outputs are the same. This package streamlines that process.
+
+The flow is fairly simple. Using the `framrsquared` package to connect to the FRAM databases. Then use `compare_table_across_dbs()` to compare the values of a table of interest between the two databases. I would suggest the Mortality table, as if the mortality values are the same, the ERs are the same.  In effect, this function lines up the same values of each run (ie, the mortality values for stock 1 in fishery 1 on timestep 1 for age 3) and compares them. In an ideal world, we would see an exact match of those values when run on established FRAM software or new FRAM software (assuming, this is being applied to runs where we would expect that to be the case). However, there may be situations in which we expect the results to be *approximately* the same but not exactly the same (e.g., the mortalities of unrelated stock when we attempt a stock splitting -- these should be exactly the same, but we may see some "decimal dust"). `summarize_exact()` and `summarize_ratio()` make tables of the absolute differences and the proportional differences in values, and `plot_comparisons_exact()` and `plot_comparisons_ratio()` create diagnostic plots of the same.
+
+In a case in which we had databases `Formal testing/coho_preseason_notamm_c.mdb` and `Formal testing/coho_preseason_notamm_c.mdb`, 
+our basic comparison might look like the following. As a reminder, `connect_fram_db` will give an error if the filepath isn't absolute; the `here` package provides absolute filepaths based on the current project.
+
+```r
+library(framrsquared)
+library(tidyverse)
+library(framqaqc)
+library(here)
+
+fram_a = connect_fram_db(here("Formal testing/coho_preseason_notamm_a.mdb"),
+                         read_only = TRUE,
+                         quiet = TRUE)
+fram_c = connect_fram_db(here("Formal testing/coho_preseason_notamm_c.mdb"),
+                         read_only = TRUE,
+                         quiet = TRUE)
+                         
+mortality_comparison = compare_table_across_dbs(fram_a, fram_c, "Mortality")
+
+summarize_exact(mortality_comparison) #hopefully all 0s or close to 0
+summarize_ratio(mortality_comparison) #hopefully all 1s or close to 1
+
+plot_comparisons_exact(mortality_comparison) #hopefully all points are on or near the 1:1 line
+plot_comparisons_ratio(mortality_comparison) #hopefully all points are on or the y = 1 line
+
+disconnect_fram_db(fram_a)
+disconnect_fram_db(fram_c)
+```
+
+For cases in which some fisheries, stocks, or runs are not expected to be identical between the two databases, those can be filtered out from the outputs of `compare_table_across_dbs()` before running `summarize_*()` or `plot_comparisons_*()`. 
+
