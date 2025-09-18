@@ -12,6 +12,7 @@ QAQC tools for comparing FRAM databases.
 Useful links:
 \itemize{
   \item \url{https://github.com/FRAMverse/framqaqc}
+  \item \url{https://framverse.github.io/framqaqc/}
   \item Report bugs at \url{https://github.com/FRAMverse/framqaqc/issues}
 }
 

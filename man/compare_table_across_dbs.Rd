@@ -22,10 +22,12 @@ Compare tables between two databases
 \examples{
 \dontrun{
 library(framrsquared)
-fram_a = connect_fram_db("C:/Repos/fram multirun testing/Formal testing/coho_preseason_notamm_a.mdb",
+fram_a = connect_fram_db(
+"C:/Repos/fram multirun testing/Formal testing/coho_preseason_notamm_a.mdb",
 read_only = TRUE,
 quiet = TRUE)
-fram_c = connect_fram_db("C:/Repos/fram multirun testing/Formal testing/coho_preseason_notamm_c.mdb",
+fram_c = connect_fram_db(
+"C:/Repos/fram multirun testing/Formal testing/coho_preseason_notamm_c.mdb",
                         read_only = TRUE,
                        quiet = TRUE)
 compare_table_across_dbs(fram_a, fram_c, "Mortality")
