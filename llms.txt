@@ -1,0 +1,54 @@
+# framqaqc
+
+The goal of framqaqc is to streamline the QAQC process for FRAM
+development.
+
+## Installation
+
+You can install the development version of framqaqc from
+[GitHub](https://github.com/) with:
+
+``` r
+
+# install.packages("pak")
+pak::pak("FRAMverse/framqaqc")
+```
+
+# Package index
+
+## All functions
+
+- [`compare_databases()`](https://framverse.github.io/framqaqc/reference/compare_databases.md)
+  :
+
+  **\[experimental\]** Compare tables in two equivalent FRAM databases
+
+- [`compare_table_across_dbs()`](https://framverse.github.io/framqaqc/reference/compare_table_across_dbs.md)
+  : Compare tables between two databases
+
+- [`plot_comparisons_exact()`](https://framverse.github.io/framqaqc/reference/plot_comparisons_exact.md)
+  : Plot the values of the two databases against each other
+
+- [`plot_comparisons_ratio()`](https://framverse.github.io/framqaqc/reference/plot_comparisons_ratio.md)
+  : Plot the ratios of database comparisons
+
+- [`run_info()`](https://framverse.github.io/framqaqc/reference/run_info.md)
+  : Provides a print out of Run ID information
+
+- [`summarize_exact()`](https://framverse.github.io/framqaqc/reference/summarize_exact.md)
+  :
+
+  Summarize exact differences from
+  [`compare_table_across_dbs()`](https://framverse.github.io/framqaqc/reference/compare_table_across_dbs.md)
+
+- [`summarize_ratio()`](https://framverse.github.io/framqaqc/reference/summarize_ratio.md)
+  :
+
+  Summarize ratio differences from
+  [`compare_table_across_dbs()`](https://framverse.github.io/framqaqc/reference/compare_table_across_dbs.md)
+
+# Articles
+
+### All vignettes
+
+- [Getting_started](https://framverse.github.io/framqaqc/articles/Getting_started.md):
